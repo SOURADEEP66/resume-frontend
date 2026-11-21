@@ -1,0 +1,236 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root {
+  color-scheme: dark;
+  --accent: #818cf8;
+  --accent-2: #c084fc;
+  --cyan: #22d3ee;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --bg: #0b0f1a;
+  --card: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.09);
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+/* ---------- Animated background ---------- */
+
+/* Floating glowing blobs */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.35), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(192, 132, 252, 0.28), transparent 40%),
+    radial-gradient(circle at 60% 80%, rgba(34, 211, 238, 0.22), transparent 40%);
+  filter: blur(40px);
+  animation: drift 20s ease-in-out infinite alternate;
+}
+
+/* Subtle grid that fades out toward the edges */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  animation: gridMove 12s linear infinite;
+}
+
+@keyframes drift {
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50%  { transform: translate(4%, -3%) scale(1.1) rotate(8deg); }
+  100% { transform: translate(-4%, 4%) scale(1.05) rotate(-6deg); }
+}
+
+@keyframes gridMove {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 48px 48px, 48px 48px; }
+}
+
+/* ---------- Layout ---------- */
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 5rem;
+}
+
+/* Fade-up entrance for every block */
+main > * {
+  animation: fadeUp 0.7s ease both;
+}
+main > *:nth-child(1) { animation-delay: 0.05s; }
+main > *:nth-child(2) { animation-delay: 0.15s; }
+main > *:nth-child(3) { animation-delay: 0.25s; }
+main > *:nth-child(4) { animation-delay: 0.35s; }
+main > *:nth-child(5) { animation-delay: 0.45s; }
+main > *:nth-child(6) { animation-delay: 0.55s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Text ---------- */
+
+h1 {
+  margin: 0;
+  font-size: 3.2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--cyan), var(--accent));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 8s linear infinite, fadeUp 0.7s ease both;
+}
+
+@keyframes shimmer {
+  from { background-position: 0% 0; }
+  to   { background-position: 300% 0; }
+}
+
+h1 + p {
+  margin: 0.25rem 0 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+h1 + p + p {
+  margin: 0.5rem 0 0;
+  font-weight: 500;
+  color: var(--cyan);
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 3rem 0 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+
+h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+p {
+  margin: 0.25rem 0;
+}
+
+/* ---------- Cards (experience, projects, education) ---------- */
+
+main > div {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+main > div:hover {
+  transform: translateY(-4px);
+  border-color: rgba(129, 140, 248, 0.5);
+  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.25);
+}
+
+main > div p {
+  color: var(--muted);
+}
+
+/* ---------- Skill tags ---------- */
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+li:hover {
+  border-color: var(--accent);
+  color: #fff;
+  background: rgba(129, 140, 248, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 0 16px rgba(129, 140, 248, 0.4);
+}
+
+/* ---------- Normal bullets inside experience ---------- */
+
+.points {
+  display: block;
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.points li {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  font-weight: 400;
+  color: var(--muted);
+  box-shadow: none;
+  transform: none;
+}
+
+.points li:hover {
+  color: var(--muted);
+  background: none;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Respect people who turn animations off in their OS */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
