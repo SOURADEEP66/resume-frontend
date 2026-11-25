@@ -234,3 +234,13 @@ li:hover {
     transition: none !important;
   }
 }
+.visitor-counter {
+  margin-top: 3rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.visitor-counter strong {
+  color: var(--cyan);
+}

@@ -1,9 +1,12 @@
 import { resume } from "./data/resume";
+import VisitorCounter from "./components/VisitorCounter";
 
 export default function App() {
   return (
     <main>
       <h1>{resume.name}</h1>
+      
+
       <p>{resume.title}</p>
       <p>{resume.email}</p>
 
@@ -49,6 +52,7 @@ export default function App() {
           <p>{edu.school} · {edu.period}</p>
         </div>
       ))}
+      <VisitorCounter />
     </main>
   );
 }
